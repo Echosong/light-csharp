@@ -29,6 +29,7 @@ Light
 ├── Light.Service 核心业务处理
 ├── Light.Test 测试使用模块
 ├── Light.Tool 自动生成代码模块
+├── doc  数据字典  数据库初始化sql
 ├── .gitignore
 ├── README.MD
 └── LICENSE
@@ -51,7 +52,28 @@ Light
 
 ## 后端步骤流程
 
+### 创建数据库
+1、 手动在sqlserver 创建一个数据库
 
+2、 当前的数据库下面执行 /doc 下 init.sql
+
+### CodeFirst 
+>  项目使用 EntityFramworkCore CodeFirst 具体使用可 <a target="_blank" href="https://learn.microsoft.com/zh-cn/ef/core/extensions/">EF Core</a>
+
+```shell
+add-migration Light
+
+Update-Database -Verbose
+
+```
+### Docker 运行需要注意
+
+> 配置 liunx系统 的  修改配置里面  TLSv1.2  为 TLSv1
+
+```shell
+ sed -i  /etc/ssl/openssl.cnf
+
+```
 
 ## 前端
 
