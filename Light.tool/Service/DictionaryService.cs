@@ -74,7 +74,7 @@ public class DictionaryService : BaseService, IService {
     /// 写入文档
     /// </summary>
     public static void WriteDictionaryFile() {
-        string fileName = AppSettingsHelper.GetContent("Path", "basePath") + "data.html";
+        string fileName = AppSettingsHelper.GetContent("Path", "basePath") + "/doc/data.html";
         if (File.Exists(fileName)) {
 
             File.Delete(fileName);
