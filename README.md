@@ -51,6 +51,14 @@ Light
 
 ## 后端步骤流程
 
+### 修改配置文件
+
+1、 Light.Admin  下面 appsettings.json
+
+2、 Light.Api  下面 appsetting.json
+
+3、 Light.Tool 下面 appsetting.json
+
 ### 创建数据库
 1、 手动在sqlserver 创建一个数据库
 
