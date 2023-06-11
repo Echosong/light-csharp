@@ -6,7 +6,7 @@
 `light-csharp` 是一个基于 `.NET` 平台的快速开发框架，采用现代化的架构设计和最佳实践，面向对象领域设计驱动，  框架是一个值得尝试的开源框架。
 
 
-### light-csharp有什么优点?
+### Alight-csharp有什么优点?
 
 - 灵活性：框架采用现代化的架构设计，支持经典三层和`DDD`架构开发模式。
 - 易用性：框架提供了完善的文档和示例代码，同时也集成了一系列主流的微服务技术栈，使用起来比较容易上手。
@@ -28,6 +28,7 @@ Light
 ├── Light.Service 核心业务处理
 ├── Light.Test 测试使用模块
 ├── Light.Tool 自动生成代码模块
+├── doc  数据字典  数据库初始化sql
 ├── .gitignore
 ├── README.MD
 └── LICENSE
@@ -50,7 +51,28 @@ Light
 
 ## 后端步骤流程
 
+### 创建数据库
+1、 手动在sqlserver 创建一个数据库
 
+2、 当前的数据库下面执行 /doc 下 init.sql
+
+### CodeFirst 
+>  项目使用 EntityFramworkCore CodeFirst 具体使用可 <a target="_blank" href="https://learn.microsoft.com/zh-cn/ef/core/extensions/">EF Core</a>
+
+```shell
+add-migration Light
+
+Update-Database -Verbose
+
+```
+### Docker 运行需要注意
+
+> 配置 liunx系统 的  修改配置里面  TLSv1.2  为 TLSv1
+
+```shell
+ sed -i  /etc/ssl/openssl.cnf
+
+```
 
 ## 前端
 
