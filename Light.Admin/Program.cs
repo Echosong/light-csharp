@@ -1,5 +1,10 @@
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
+using Light.Common.Configuration;
+using Light.Common.Filter;
+using Light.Common.RedisCache;
+using Light.Common.Setup;
+using Light.Entity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
@@ -22,25 +27,25 @@ builder.Services.AddSingleton(new AppSettingsHelper(builder.Environment.ContentR
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 
-//ȫ��ע��һ��redis
+//全局注册一个redis
 builder.Services.AddScoped<Redis>();
 
 //swagger
 builder.Services.AddSwaggerGen(c => {
     c.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo {
-        Title = "��־Ը�����ĵ�-Admin",
-        Description = "�ӿ�˵�� --������"
+        Title = "起航志愿在线文档-Admin",
+        Description = "接口说明 --二胡子"
     });
 
-    //���Ӱ�ȫ����
+    //添加安全定义
     c.AddSecurityDefinition("Token", new OpenApiSecurityScheme {
-        Description = "������token,��ʽΪ Bearer xxxxxxxx��ע���м�����пո�",
+        Description = "请输入token,格式为 Bearer xxxxxxxx（注意中间必须有空格）",
         Name = "token",
         In = ParameterLocation.Header,
         Type = SecuritySchemeType.ApiKey,
         Scheme = ""
     });
-    //���Ӱ�ȫҪ��
+    //添加安全要求
     c.AddSecurityRequirement(new OpenApiSecurityRequirement {
         {
             new OpenApiSecurityScheme{
@@ -58,40 +63,40 @@ builder.Services.AddSwaggerGen(c => {
 });
 
 
-// ע��filter
+// 注入filter
 builder.Services.AddMvc(t => {
     t.Filters.Add(new ExceptionsFilterForApi());
     t.Filters.Add(new ResultAttribute());
     t.Filters.Add(new AuthFilterForAdmin());
 }).AddNewtonsoftJson(p => {
-    //���ݸ�ʽ����ĸСд ��ʹ���շ�
+    //数据格式首字母小写 不使用驼峰
     p.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
-    //��ʹ���շ���ʽ��key
+    //不使用驼峰样式的key
     //p.SerializerSettings.ContractResolver = new DefaultContractResolver();
-    //����ѭ������
+    //忽略循环引用
     p.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
-    //����ʱ���ʽ������ʹ��yyyy/MM/dd��ʽ����Ϊiosϵͳ��֧��2018-03-29��ʽ��ʱ�䣬ֻʶ��2018/03/09���ָ�ʽ����
+    //设置时间格式（必须使用yyyy/MM/dd格式，因为ios系统不支持2018-03-29格式的时间，只识别2018/03/09这种格式。）
     p.SerializerSettings.DateFormatString = "yyyy/MM/dd HH:mm:ss";
-    //����null ֵ
+    //忽略null 值
     p.SerializerSettings.NullValueHandling = NullValueHandling.Ignore;
 
 });
 
-#region ����΢������
+#region 添加微信配置
 
-//ʹ�ñ��ػ����������
+//使用本地缓存必须添加
 builder.Services.AddMemoryCache();
 
-//Senparc.Weixin ע�ᣨ���룩
+//Senparc.Weixin 注册（必须）
 builder.Services.AddSenparcWeixinServices(builder.Configuration);
 
 #endregion
 
-//����Dbcontext����
+//添加Dbcontext服务
 //Enable-Migrations  -ProjectName "Light.Entity" -StartUpProjectName "Light.Api"  -Verbose
 builder.Services.AddDbContext<Db>(options => { options.UseSqlServer(AppSettingsConstVars.DbSqlConnection); });
 
-//�Զ�ע�� service
+//自动注入 service
 builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory());
 builder.Host.ConfigureContainer<ContainerBuilder>((host, containerBuilder) => {
 
@@ -113,16 +118,16 @@ if (app.Environment.IsDevelopment()) {
 }
 
 
-#region ����΢������
+#region 启用微信配置
 
-//����΢�����ã����룩
+//启用微信配置（必须）
 var registerService = app.UseSenparcWeixin(app.Environment,
-    null /* ��Ϊ null �򸲸� appsettings  �е� SenpacSetting ����*/,
-    null /* ��Ϊ null �򸲸� appsettings  �е� SenpacWeixinSetting ����*/,
-    register => { /* CO2NET ȫ������ */ },
+    null /* 不为 null 则覆盖 appsettings  中的 SenpacSetting 配置*/,
+    null /* 不为 null 则覆盖 appsettings  中的 SenpacWeixinSetting 配置*/,
+    register => { /* CO2NET 全局配置 */ },
     (register, weixinSetting) => {
-        //ע�ṫ�ں���Ϣ������ִ�ж�Σ�ע�������ںţ�
-        register.RegisterMpAccount(weixinSetting, "��SNS�����ں�");
+        //注册公众号信息（可以执行多次，注册多个公众号）
+        register.RegisterMpAccount(weixinSetting, "【SNS】公众号");
     });
 
 
