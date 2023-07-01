@@ -33,7 +33,7 @@ builder.Services.AddScoped<Redis>();
 //swagger
 builder.Services.AddSwaggerGen(c => {
     c.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo {
-        Title = "起航志愿在线文档-Admin",
+        Title = "Light-Admin",
         Description = "接口说明 --二胡子"
     });
 
