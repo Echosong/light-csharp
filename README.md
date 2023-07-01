@@ -3,10 +3,10 @@
 ## 概述
 ### 关于light
 
-`light-csharp` 是一个基于 `.NET` 平台的快速开发框架，采用现代化的架构设计和最佳实践，面向对象领域设计驱动，  框架是一个值得尝试的开源框架。
+`light-csharp` 是一个基于 `.NET6` 平台的快速开发框架，采用现代化的架构设计和最佳实践，面向对象领域设计驱动，  框架是一个值得尝试的开源框架。
 
 
-### Alight-csharp有什么优点?
+### light-csharp有什么优点?
 
 - 灵活性：框架采用现代化的架构设计，支持经典三层和`DDD`架构开发模式。
 - 易用性：框架提供了完善的文档和示例代码，同时也集成了一系列主流的微服务技术栈，使用起来比较容易上手。
@@ -50,6 +50,14 @@ Light
 | <a target="_blank" href="https://github.com/StackExchange/StackExchange.Redis">StackExchange.Redis</a> | 开源的Redis客户端SDK                                         |
 
 ## 后端步骤流程
+
+### 修改配置文件
+
+1、 Light.Admin  下面 appsettings.json
+
+2、 Light.Api  下面 appsetting.json
+
+3、 Light.Tool 下面 appsetting.json
 
 ### 创建数据库
 1、 手动在sqlserver 创建一个数据库
