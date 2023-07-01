@@ -4,7 +4,7 @@
             <!-- 参数栏 -->
             <div class="c-panel">
                 <el-form size="mini" v-if="m" ref="ruleForm" :rules="rules" :model="m" class="demo-ruleForm" label-width="120px">
-                    <el-form-item :label="m.type ==3? '标题':'年份'" prop="title">
+                    <el-form-item :label="m.type ===3? '标题':'年份'" prop="title">
                         <el-input v-model="m.title"></el-input>
                     </el-form-item>
                     <el-form-item label="副标" v-if="m.type == 3" prop="info">
