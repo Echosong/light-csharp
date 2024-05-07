@@ -34,29 +34,29 @@ namespace Light.Tool.Service {
         /// <summary>
         /// 模板地址
         /// </summary>
-        private string templatePath = AppSettingsHelper.GetContent("Path", "templatePath");
+        private string _templatePath = AppSettingsHelper.GetContent("Path", "templatePath");
 
         /// <summary>
         /// 前端路径
         /// </summary>
-        protected string vuePath = AppSettingsHelper.GetContent("Path", "vuePath");
+        protected string VuePath = AppSettingsHelper.GetContent("Path", "vuePath");
 
         /// <summary>
         /// 控制器路径
         /// </summary>
-        protected string controllerPath = AppSettingsHelper.GetContent("Path", "controllerPath");
+        protected string ControllerPath = AppSettingsHelper.GetContent("Path", "controllerPath");
 
         /// <summary>
         /// dto 路径
         /// </summary>
-        protected string dtoPath = AppSettingsHelper.GetContent("Path", "dtoPath");
+        protected string DtoPath = AppSettingsHelper.GetContent("Path", "dtoPath");
 
         /// <summary>
         /// 基础路径
         /// </summary>
-        protected string basePath = AppSettingsHelper.GetContent("Path", "basePath");
+        protected string BasePath = AppSettingsHelper.GetContent("Path", "basePath");
 
-        protected string TemplatePath { get => templatePath; set => templatePath = value; }
+        protected string TemplatePath { get => _templatePath; set => _templatePath = value; }
 
         /// <summary>
         /// 构造函数
@@ -81,7 +81,7 @@ namespace Light.Tool.Service {
         /// <param name="tplName">模板路径名</param>
         /// <returns>初步处理后模板内容</returns>
         protected string ReplaceTpl(string tplName) {
-            string tplContent = File.ReadAllText(basePath + TemplatePath + tplName);
+            string tplContent = File.ReadAllText(BasePath + TemplatePath + tplName);
             tplContent = tplContent.Replace("#{EntityName}#", tableName);
             tplContent = tplContent.Replace("#{tableInfo}#", tableInfo);
             return tplContent;

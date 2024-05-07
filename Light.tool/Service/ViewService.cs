@@ -16,7 +16,7 @@ namespace Light.Tool.Service {
         }
 
         public void Start() {
-            _targetPath = vuePath + "/sa-view/" + LowerFirst(tableName);
+            _targetPath = VuePath + "/sa-view/" + LowerFirst(tableName);
 
             if (Auto.viewFrom) FormView();
             if (Auto.viewList) ListView();
@@ -32,7 +32,7 @@ namespace Light.Tool.Service {
             var name = LowerFirst(clazz.Name);
             var perms = $"{{perms:\"{name}-{typeStr}\", view: () => import('@/sa-view/{name}/{typeStr}.vue')}},";
 
-            var configPath = vuePath + "/router.js";
+            var configPath = VuePath + "/router.js";
             var readLines = File.ReadLines(configPath);
             foreach (var readLine in readLines)
                 if (readLine.StartsWith("]")) {

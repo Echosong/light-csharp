@@ -11,6 +11,10 @@ namespace Light.Admin.Controllers {
     [ApiController]
     public class AdController : BaseController {
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="db"></param>
         public AdController(Db db) {
             this._db = db;
             this._db.UserId = _user.Id;

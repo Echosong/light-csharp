@@ -13,7 +13,7 @@ namespace Light.Tool.Service {
                 return;
             }
             var replaceTpl = this.ReplaceTpl("controller.tpl");
-            string path = basePath + controllerPath + tableName + "Controller.cs";
+            string path = BasePath + ControllerPath + tableName + "Controller.cs";
             if (File.Exists(path)) {
                 Console.WriteLine($"{path} 已经存在不做处理");
                 return;

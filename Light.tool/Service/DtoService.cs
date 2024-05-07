@@ -13,7 +13,7 @@ namespace Light.Tool.Service {
 
             var replaceTpl = ReplaceTpl("queryDto.tpl");
 
-            var path = basePath + dtoPath + tableName + "QueryDto.cs";
+            var path = BasePath + DtoPath + tableName + "QueryDto.cs";
 
             if (File.Exists(path)) {
                 Console.WriteLine($"{path} 已经存在不做处理");
